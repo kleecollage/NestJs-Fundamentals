@@ -21,9 +21,8 @@ export class UsersService {
   }
 
   getUsers(start: Date, end: Date) {
-    console.log(start);
-    console.log(end);
-
+    // console.log(start);
+    // console.log(end);
     if (start && end) {
       return this._users.filter(
         (u) =>
@@ -39,5 +38,28 @@ export class UsersService {
     } else {
       return this._users;
     }
+  }
+
+  updateUser(user: UserDto) {
+    const userAdded = this.createUser(user);
+
+    if (!userAdded) {
+      const index = this._users.findIndex((u) => u.id == user.id);
+      this._users[index] = user;
+    }
+
+    return true;
+  }
+
+  deleteUser(idUser: number) {
+    const index = this._users.findIndex((u) => u.id === idUser);
+    console.log(index);
+
+    if (index != -1) {
+      this._users.splice(index, 1);
+      return true;
+    }
+
+    return false;
   }
 }
