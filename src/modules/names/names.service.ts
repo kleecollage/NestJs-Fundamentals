@@ -29,4 +29,34 @@ export class NamesService {
       );
     }
   }
+
+  updateName(name: string, newName: string) {
+    const indexNameFound = this._names.findIndex(
+      (n) => n.toLowerCase().trim() == name.toLowerCase().trim(),
+    );
+
+    const indexNewNameFound = this._names.findIndex(
+      (n) => n.toLowerCase().trim() == newName.toLowerCase().trim(),
+    );
+
+    if (indexNameFound != -1 && indexNewNameFound == -1) {
+      this._names[indexNameFound] = newName;
+      return true;
+    } else return false;
+  }
+
+  deleteName(name: string) {
+    const deletedBefore = this._names.length;
+    this._names = this._names.filter(
+      (n) => n.toLowerCase().trim() != name.toLowerCase().trim(),
+    );
+    const deletedAfter = this._names.length;
+
+    return deletedBefore != deletedAfter;
+  }
+
+  clearNames() {
+    this._names = [];
+    return true;
+  }
 }
