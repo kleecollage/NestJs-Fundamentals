@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { createLogger, format, Logger, transports } from 'winston';
+import 'winston-daily-rotate-file';
 
 @Injectable()
 export class LoggerService {
@@ -25,8 +26,11 @@ export class LoggerService {
       level: 'info',
       format: format.combine(dateFormat, textFormat),
       transports: [
-        new transports.File({
-          filename: 'log/info/info.log',
+        new transports.DailyRotateFile({
+          filename: 'log/info/info-%DATE%.log',
+          datePattern: 'YYYY-MM-DD',
+          maxFiles: '7d',
+          // zippedArchive: true,
         }),
       ],
     });
@@ -35,8 +39,11 @@ export class LoggerService {
       level: 'error',
       format: format.combine(dateFormat, textFormat),
       transports: [
-        new transports.File({
-          filename: 'log/error/error.log',
+        new transports.DailyRotateFile({
+          filename: 'log/error/error-%DATE%.log',
+          datePattern: 'YYYY-MM-DD',
+          maxFiles: '7d',
+          // zippedArchive: true,
         }),
       ],
     });
@@ -45,8 +52,11 @@ export class LoggerService {
       level: 'warn',
       format: format.combine(dateFormat, textFormat),
       transports: [
-        new transports.File({
-          filename: 'log/warn/warn.log',
+        new transports.DailyRotateFile({
+          filename: 'log/warn/warn-%DATE%.log',
+          datePattern: 'YYYY-MM-DD',
+          maxFiles: '7d',
+          // zippedArchive: true,
         }),
       ],
     });
@@ -54,8 +64,11 @@ export class LoggerService {
     this.loggerAll = createLogger({
       format: format.combine(dateFormat, textFormat),
       transports: [
-        new transports.File({
-          filename: 'log/all/all.log',
+        new transports.DailyRotateFile({
+          filename: 'log/all/all-%DATE%.log',
+          datePattern: 'YYYY-MM-DD',
+          maxFiles: '7d',
+          // zippedArchive: true,
         }),
         new transports.Console(),
       ],

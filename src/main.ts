@@ -1,9 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { LoggerService } from 'src/modules/logger/logger.service';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: new LoggerService(),
+  });
   const config = new DocumentBuilder()
     .setTitle('Cron App')
     .setDescription('Cron Example')
