@@ -11,7 +11,8 @@ export class CronService {
 
   @Cron('*/10 * * * * *', { name: 'cron1' }) // cada 10 secs
   cron1() {
-    this.loggerService.log('Cron1: Accion cada 10 s');
+    // this.loggerService.log('Cron1: Accion cada 10 s');
+    console.log('Cron1: Accion cada 10 s');
   }
 
   @Cron('*/30 * * * * *', { name: 'cron2' }) // cada 30 secs
